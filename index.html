@@ -1,0 +1,710 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>باغ مخفی MAEDE</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="maede-plus.css">
+  <script src="maede-plus.js" defer></script>
+  <script src="maede-score.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" id="homeLink">MAEDE<span>✦</span></a>
+    <div class="topbar-note">یک دنیای کوچک و اختصاصی</div>
+  </header>
+
+  <main>
+    <!-- مرحله اول: باغ گل‌ها -->
+    <section id="gardenStage" class="stage active">
+      <div class="hero">
+        <div class="eyebrow">✦ فصل اول · شروع ماجراجویی ✦</div>
+        <h1>باغ مخفی <span>MAEDE</span></h1>
+        <p>گل‌های پنهان باغ رو پیدا کن و دروازه‌ی مزون مخفی رو باز کن.</p>
+      </div>
+
+      <div class="game-panel">
+        <div class="stats">
+          <div class="stat-card">
+            <span>گل‌های پیدا شده</span>
+            <strong id="flowerCount">۰ از ۸</strong>
+          </div>
+          <div class="stat-card">
+            <span>امتیاز تو</span>
+            <strong id="score">۰</strong>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div id="gardenProgress" class="progress-fill"></div>
+        </div>
+
+        <p id="gardenMessage" class="message" aria-live="polite">
+          روی گل‌ها کلیک کن تا باغ کم‌کم رازهاش رو برات آشکار کنه.
+        </p>
+
+        <div id="flowerGrid" class="flower-grid"></div>
+
+        <div class="button-row">
+          <button id="hintBtn" class="button secondary">✨ راهنمایی</button>
+          <button id="resetGardenBtn" class="button secondary">از اول شروع کن</button>
+        </div>
+
+        <div id="gardenReward" class="reward hidden">
+          <div class="reward-icon">🌷</div>
+          <h2>آفرین، باغ باز شد!</h2>
+          <p>یک در مخفی پشت گل‌ها منتظرته. آماده‌ای وارد دنیای طراحی بشی؟</p>
+          <button id="openBoutiqueBtn" class="button primary">
+            ورود به مزون مخفی ←
+          </button>
+        </div>
+      </div>
+      
+    </section>
+
+    <!-- مرحله دوم: مزون طراحی لباس -->
+    <section id="boutiqueStage" class="stage">
+      <div class="hero">
+        <div class="eyebrow">✦ فصل دوم · استودیوی طراحی ✦</div>
+        <h1>مزون مخفی <span>MAEDE</span></h1>
+        <p>حالا نوبت توئه؛ لباس رؤیایی خودت رو طراحی کن.</p>
+      </div>
+
+      <div class="boutique-layout">
+        <section class="preview-card">
+          <div class="preview-heading">
+            <div>
+              <span class="mini-label">طراحی اختصاصی</span>
+              <h2>استایل تو</h2>
+            </div>
+            <span class="live-pill"><span></span> پیش‌نمایش زنده</span>
+          </div>
+
+          <div class="dress-scene" id="dressScene">
+            <div class="scene-glow"></div>
+            <div class="scene-flower flower-one">✿</div>
+            <div class="scene-flower flower-two">❀</div>
+            <div class="scene-star star-one">✦</div>
+            <div class="scene-star star-two">✧</div>
+            <div id="maede3dMount" class="maede-3d-mount" aria-label="پیش‌نمایش سه‌بعدی مانکن و لباس"></div>
+            <div class="viewer-tools" aria-label="کنترل نمای سه‌بعدی">
+              <span>برای چرخش بکش · اسکرول برای بزرگ‌نمایی</span>
+              <button type="button" id="rotateModelBtn" aria-pressed="false">چرخش خودکار ۳۶۰°</button>
+              <button type="button" id="resetModelViewBtn">نمای روبه‌رو</button>
+            </div>
+
+            
+<svg id="dressSvg" class="dress-svg" viewBox="0 0 320 460"
+  role="img" aria-label="مانکن و لباس طراحی‌شده">
+
+  <defs>
+    <linearGradient id="fabricShade" x1="0" y1="0" x2="1" y2="1">
+      <stop id="fabricLight" offset="0%" stop-color="#eadcff"/>
+      <stop id="fabricDark" offset="100%" stop-color="#8c5ac8"/>
+    </linearGradient>
+    <linearGradient id="skinShade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffe1ca"/>
+      <stop offset="100%" stop-color="#c98d73"/>
+    </linearGradient>
+    <linearGradient id="hairShade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#68415c"/>
+      <stop offset="100%" stop-color="#24172d"/>
+    </linearGradient>
+    <linearGradient id="metalShade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff0bb"/>
+      <stop offset="50%" stop-color="#d8ac55"/>
+      <stop offset="100%" stop-color="#fff2c7"/>
+    </linearGradient>
+    <filter id="dressShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="7" stdDeviation="6"
+        flood-color="#21112e" flood-opacity=".3"/>
+    </filter>
+  </defs>
+
+  <!-- موهای پشت سر -->
+  <path d="M124 66 Q112 15 160 13 Q207 15 196 69
+    L204 123 L188 147 L132 147 L116 120 Z"
+    fill="url(#hairShade)"/>
+
+  <!-- بازوها و دست‌ها -->
+  <g id="mannequinArms" fill="url(#skinShade)"
+    stroke="#b9816d" stroke-width="1">
+    <path d="M132 111 Q122 108 116 121
+      L91 169 Q86 179 91 190
+      L105 216 Q109 223 115 220
+      Q121 217 117 210 L105 184
+      L118 159 L137 145 Z"/>
+    <path d="M188 111 Q198 108 204 121
+      L229 169 Q234 179 229 190
+      L215 216 Q211 223 205 220
+      Q199 217 203 210 L215 184
+      L202 159 L183 145 Z"/>
+    <path d="M91 180 Q85 184 88 192 L98 211
+      Q101 217 105 214 L101 204
+      L108 214 Q112 218 115 214 L108 198 Z"/>
+    <path d="M229 180 Q235 184 232 192 L222 211
+      Q219 217 215 214 L219 204
+      L212 214 Q208 218 205 214 L212 198 Z"/>
+  </g>
+  <!-- خطوط ظریف فرم ساعد و انگشت‌ها برای حالت طبیعی‌تر دست -->
+  <g fill="none" stroke="#a96f62" stroke-width="1.1" stroke-linecap="round" opacity=".78">
+    <path d="M98 172 Q104 178 109 177 M96 181 Q101 187 106 186"/>
+    <path d="M222 172 Q216 178 211 177 M224 181 Q219 187 214 186"/>
+    <path d="M99 205 L103 211 M105 202 L109 209 M221 205 L217 211 M215 202 L211 209"/>
+  </g>
+
+  <!-- گردن و گوش‌ها -->
+  <path d="M145 80 L145 111 Q160 124 175 111 L175 80"
+    fill="url(#skinShade)"/>
+  <ellipse cx="127" cy="59" rx="7" ry="12" fill="url(#skinShade)"/>
+  <ellipse cx="193" cy="59" rx="7" ry="12" fill="url(#skinShade)"/>
+
+  <!-- صورت -->
+  <path d="M128 47
+    Q128 25 160 25
+    Q192 25 192 47
+    L188 75
+    Q182 94 160 97
+    Q138 94 132 75 Z"
+    fill="url(#skinShade)"/>
+
+  <!-- چشم و ابرو -->
+  <g fill="#3d283a">
+    <path d="M139 54 Q147 48 154 54 Q147 60 139 54"/>
+    <path d="M166 54 Q173 48 181 54 Q173 60 166 54"/>
+    <path d="M138 48 Q146 44 154 48" fill="none"
+      stroke="#58364a" stroke-width="2" stroke-linecap="round"/>
+    <path d="M166 48 Q174 44 182 48" fill="none"
+      stroke="#58364a" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <path d="M160 56 L157 67 L162 68"
+    fill="none" stroke="#bd846f" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M151 77 Q160 82 169 77"
+    fill="none" stroke="#a85c70" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- موهای جلوی سر -->
+  <path d="M128 57
+    Q118 18 158 17
+    Q195 17 192 54
+    L185 45 Q178 38 170 36
+    Q151 45 132 41 Z"
+    fill="url(#hairShade)"/>
+  <path d="M131 45 Q124 76 139 92
+    Q126 88 121 68 L121 45 Z"
+    fill="url(#hairShade)"/>
+  <path d="M188 43 Q200 76 181 94
+    Q195 87 199 66 L198 45 Z"
+    fill="url(#hairShade)"/>
+
+  <!-- گوشواره‌ها -->
+  <g id="earringAccessory" class="accessory hidden">
+    <path d="M127 66 L127 77 M193 66 L193 77"
+      stroke="url(#metalShade)" stroke-width="3"/>
+    <path d="M127 77 L121 84 L127 92 L133 84 Z
+      M193 77 L187 84 L193 92 L199 84 Z"
+      fill="#e8c5ff" stroke="url(#metalShade)" stroke-width="1.5"/>
+  </g>
+
+  <!-- تنه لباس -->
+  <path id="dressBody"
+    d="M137 109 Q148 100 160 102 Q172 100 183 109
+    L207 148 L187 164 L179 143
+    L181 208 L139 208 L141 143
+    L133 164 L113 148 Z"
+    fill="url(#fabricShade)" stroke="#fff0ff"
+    stroke-opacity=".8" stroke-width="1.5"
+    filter="url(#dressShadow)"/>
+
+  <!-- آستین‌ها -->
+  <g id="dressSleeves" fill="url(#fabricShade)"
+    stroke="#fff0ff" stroke-opacity=".8" stroke-width="1.5">
+    <path d="M136 110 Q125 106 119 122
+      L111 145 Q121 157 134 151 L147 126 Z"/>
+    <path d="M184 110 Q195 106 201 122
+      L209 145 Q199 157 186 151 L173 126 Z"/>
+  </g>
+
+  <!-- دامن -->
+  <path id="dressSkirt"
+    d="M139 197 Q160 206 181 197
+    Q198 260 226 366
+    Q192 390 160 382
+    Q128 390 94 366
+    Q122 260 139 197 Z"
+    fill="url(#fabricShade)" stroke="#fff0ff"
+    stroke-opacity=".8" stroke-width="1.5"
+    filter="url(#dressShadow)"/>
+
+  <!-- خطوط پارچه -->
+  <path id="dressDetail"
+    d="M140 119 Q160 139 180 119
+    M160 137 L160 351"
+    fill="none" stroke="#fff0ff" stroke-opacity=".75"
+    stroke-width="2" stroke-linecap="round"/>
+
+  <!-- کمربند -->
+  <g id="beltAccessory" class="accessory hidden">
+    <path d="M139 198 Q160 204 181 198"
+      fill="none" stroke="url(#metalShade)" stroke-width="7"/>
+    <path d="M155 198 L160 193 L165 198 L160 204 Z"
+      fill="#fff0bd" stroke="#bd8b40" stroke-width="1"/>
+  </g>
+
+  <!-- گردنبند -->
+  <g id="necklaceAccessory" class="accessory hidden">
+    <path id="necklaceChain" d="M143 105 Q160 135 177 105"
+      fill="none" stroke="url(#metalShade)" stroke-width="3"/>
+    <path id="necklacePendant" d="M155 124 L160 132 L165 124 L160 118 Z"
+      fill="#f7e7ff" stroke="#d5ad67" stroke-width="1.5"/>
+  </g>
+
+  <!-- تاج -->
+  <g id="crownAccessory" class="accessory hidden">
+    <path d="M130 34 L134 13 L148 25 L160 5
+      L172 25 L186 13 L190 34 Z"
+      fill="url(#metalShade)" stroke="#a87d36" stroke-width="1.5"/>
+    <circle cx="160" cy="17" r="4" fill="#e8b9ff"/>
+    <circle cx="141" cy="25" r="3" fill="#d6e8ff"/>
+    <circle cx="179" cy="25" r="3" fill="#ffc9de"/>
+  </g>
+
+  <!-- کیف -->
+  <g id="bagAccessory" class="accessory hidden">
+    <path id="bagHandle" d="M206 224 Q219 196 232 224"
+      fill="none" stroke="url(#metalShade)" stroke-width="3"/>
+    <path id="bagShape" d="M204 224 Q204 220 209 220 L229 220 Q235 220 235 227 L233 254 Q233 260 227 260 L211 260 Q205 260 205 254 Z"
+      fill="#c6a0e8" stroke="#f7e9ff" stroke-width="2"/>
+    <path id="bagDetail" d="M211 238 L219 246 L227 238"
+      fill="none" stroke="#fff0bd" stroke-width="2"/>
+  </g>
+
+  <!-- دستکش -->
+  <g id="gloveAccessory" class="accessory hidden"
+    fill="#f0d8fa" stroke="#d0b0e7" stroke-width="1.5">
+    <path d="M94 188 Q89 194 96 205 L104 219
+      Q108 224 113 218 L108 207 L102 190 Z"/>
+    <path d="M226 188 Q231 194 224 205 L216 219
+      Q212 224 207 218 L212 207 L218 190 Z"/>
+  </g>
+
+  <!-- شنل -->
+  <path id="capeAccessory" class="accessory hidden"
+    d="M136 112 Q124 119 128 156
+    L110 294 Q133 313 144 284
+    L160 198 L176 284 Q187 313 210 294
+    L192 156 Q196 119 184 112
+    L177 155 L160 177 L143 155 Z"
+    fill="url(#fabricShade)" stroke="#fff0ff"
+    stroke-width="1.5" stroke-opacity=".8"/>
+
+  <!-- دستبند -->
+  <g id="braceletAccessory" class="accessory hidden"
+    fill="none" stroke="url(#metalShade)" stroke-width="4">
+    <path d="M94 192 Q99 198 104 192"/>
+    <path d="M216 192 Q221 198 226 192"/>
+  </g>
+
+  <!-- امضای طراح -->
+  <text x="160" y="429" text-anchor="middle"
+    fill="#f5e9ff" font-size="16" font-family="Georgia, serif"
+    letter-spacing="3">MAEDE</text>
+  <text x="160" y="447" text-anchor="middle"
+    fill="#e1c9f5" font-size="9">DESIGNED BY YOU ✦</text>
+</svg>
+
+
+            <div class="scene-caption">یک طراحی، هزار انتخاب</div>
+          </div>
+
+          <div class="design-summary">
+            <span>مدل: <strong id="summaryModel">لباس مجلسی</strong></span>
+            <span>رنگ: <strong id="summaryColor">یاسی</strong></span>
+            <span>فرم دامن: <strong id="summaryShape">هماهنگ با مدل</strong></span>
+          </div>
+        </section>
+
+        <section class="controls-card">
+          <div class="control-section">
+            <span class="step-label">۰۱ / مدل لباس</span>
+            <h3>از کجا شروع کنیم؟</h3>
+            
+<div class="option-grid model-options">
+  <button class="choice-button selected" data-model="ballgown">
+    <span class="choice-icon">👸</span>
+    <strong>پرنسسی</strong>
+    <small>دامن پف‌دار</small>
+  </button>
+
+  <button class="choice-button" data-model="slim">
+    <span class="choice-icon">✨</span>
+    <strong>ظریف</strong>
+    <small>برش ساده</small>
+  </button>
+
+  <button class="choice-button" data-model="fairy">
+    <span class="choice-icon">🦋</span>
+    <strong>پری‌گونه</strong>
+    <small>دامن فانتزی</small>
+  </button>
+
+  <button class="choice-button" data-model="mermaid">
+    <span class="choice-icon">🧜‍♀️</span>
+    <strong>ماهی</strong>
+    <small>فرم چسبان</small>
+  </button>
+
+  <button class="choice-button" data-model="royal">
+    <span class="choice-icon">💜</span>
+    <strong>سلطنتی</strong>
+    <small>دامن بلند</small>
+  </button>
+  <button class="choice-button" data-model="a-line">
+    <span class="choice-icon">🌷</span>
+    <strong>کلوش کلاسیک</strong>
+    <small>فرم A-line</small>
+  </button>
+  <button class="choice-button" data-model="offshoulder">
+    <span class="choice-icon">🎀</span>
+    <strong>دکلته</strong>
+    <small>شانه‌های باز</small>
+  </button>
+  <button class="choice-button" data-model="highlow">
+    <span class="choice-icon">🪷</span>
+    <strong>های‌لو</strong>
+    <small>جلو کوتاه، پشت بلند</small>
+  </button>
+  <button class="choice-button" data-model="pleated">
+    <span class="choice-icon">✨</span>
+    <strong>چین‌دار</strong>
+    <small>چین‌های ظریف</small>
+  </button>
+  <button class="choice-button" data-model="vintage">
+    <span class="choice-icon">🌹</span>
+    <strong>وینتیج</strong>
+    <small>استایل کلاسیک</small>
+  </button>
+  <button class="choice-button" data-model="tulip"><span class="choice-icon">🌷</span><strong>لاله‌ای</strong><small>دامن گرد و جمع</small></button>
+  <button class="choice-button" data-model="trumpet"><span class="choice-icon">💃</span><strong>ترامپتی</strong><small>چسبان تا زانو، باز پایین</small></button>
+  <button class="choice-button" data-model="bubble"><span class="choice-icon">🫧</span><strong>بابل کوتاه</strong><small>شیک و شیطون</small></button>
+  <button class="choice-button" data-model="tiered"><span class="choice-icon">🎀</span><strong>لایه‌لایه</strong><small>ریسه‌های چین‌دار</small></button>
+  <button class="choice-button" data-model="bridal"><span class="choice-icon">👰</span><strong>عروس</strong><small>دنباله‌دار و مرواریدی</small></button>
+</div>
+
+            <div class="shape-studio extras-studio">
+              <div class="shape-studio-heading"><div><span class="step-label">جزئیات خاص</span><h3>روی لباس جزئیات اضافه کن</h3></div></div>
+              <div class="shape-choice-grid">
+                <button type="button" class="shape-choice" data-extra="tiers" aria-pressed="false"><span>🎀</span><strong>ریسه‌های چین‌دار</strong></button>
+                <button type="button" class="shape-choice" data-extra="bow" aria-pressed="false"><span>🎗️</span><strong>پاپیون کمر</strong></button>
+                <button type="button" class="shape-choice" data-extra="train" aria-pressed="false"><span>👰</span><strong>دنباله‌ی بلند</strong></button>
+                <button type="button" class="shape-choice" data-extra="beads" aria-pressed="false"><span>🤍</span><strong>مروارید یقه</strong></button>
+                <button type="button" class="shape-choice" data-extra="scallop" aria-pressed="false"><span>🌊</span><strong>لبه‌ی موج‌دار</strong></button>
+                <button type="button" class="shape-choice" data-extra="flowers" aria-pressed="false"><span>🌸</span><strong>گل‌های برجسته</strong></button>
+              </div>
+              <div class="shape-control"><label for="hairStyleOptions">مدل مو</label><div class="shape-select-wrap"><select id="hairStyleOptions"><option value="down">باز و بلند</option><option value="bun">بان بالای سر</option><option value="ponytail">دم‌اسبی</option><option value="braid">بافت</option></select></div></div>
+            </div>
+            <div class="shape-studio" aria-label="تنظیمات اختصاصی فرم لباس">
+              <div class="shape-studio-heading">
+                <div><span class="step-label">طراحی دقیق‌تر</span><h3>فرم لباس رو خودت بساز</h3></div>
+                <span class="shape-studio-icon" aria-hidden="true">✦</span>
+              </div>
+              <p>مدل پایه رو انتخاب کن، بعد فرم دامن، یقه، آستین و قد رو جداگانه تغییر بده.</p>
+              <div class="shape-control">
+                <label for="skirtShapeOptions">فرم دامن</label>
+                <div class="shape-choice-grid" id="skirtShapeOptions" role="group" aria-label="فرم دامن">
+                  <button type="button" class="shape-choice selected" data-skirt-shape="auto" aria-pressed="true"><span>👗</span><strong>هماهنگ با مدل</strong></button>
+                  <button type="button" class="shape-choice" data-skirt-shape="a-line" aria-pressed="false"><span>🌷</span><strong>فون</strong></button>
+                  <button type="button" class="shape-choice" data-skirt-shape="ballgown" aria-pressed="false"><span>👑</span><strong>پفی</strong></button>
+                  <button type="button" class="shape-choice" data-skirt-shape="slim" aria-pressed="false"><span>✨</span><strong>راسته</strong></button>
+                  <button type="button" class="shape-choice" data-skirt-shape="mermaid" aria-pressed="false"><span>🧜‍♀️</span><strong>ماهی</strong></button>
+                  <button type="button" class="shape-choice" data-skirt-shape="pleated" aria-pressed="false"><span>〰️</span><strong>چین‌دار</strong></button>
+                </div>
+              </div>
+              <div class="shape-control-pair">
+                <div class="shape-control">
+                  <label for="necklineOptions">مدل یقه</label>
+                  <div class="shape-select-wrap"><select id="necklineOptions"><option value="sweetheart">قلبی</option><option value="square">مربعی</option><option value="v">هفت</option><option value="offshoulder">باز روی شانه</option></select></div>
+                </div>
+                <div class="shape-control">
+                  <label for="sleeveOptions">مدل آستین</label>
+                  <div class="shape-select-wrap"><select id="sleeveOptions"><option value="puff">پفی کوتاه</option><option value="short">کوتاه ساده</option><option value="long">بلند</option><option value="none">بدون آستین</option></select></div>
+                </div>
+              </div>
+              <div class="shape-control length-control">
+                <label for="dressLengthOptions">قد لباس <output id="dressLengthLabel">بلند</output></label>
+                <input id="dressLengthOptions" type="range" min="0" max="2" step="1" value="2" aria-label="قد لباس">
+                <div class="range-labels"><span>زانو</span><span>میدی</span><span>بلند</span></div>
+              </div>
+            </div>
+
+
+          </div>
+
+          
+<div class="color-options">
+  <button class="color-choice selected"
+    data-color="#b995ed" data-light="#eadcff" data-dark="#8c5ac8"
+    data-color-name="یاسی" aria-label="یاسی"
+    style="--swatch:#b995ed"></button>
+
+  <button class="color-choice"
+    data-color="#f0d7e7" data-light="#fff1fa" data-dark="#d79cbd"
+    data-color-name="صورتی ملایم" aria-label="صورتی ملایم"
+    style="--swatch:#f0d7e7"></button>
+
+  <button class="color-choice"
+    data-color="#e8e6f0" data-light="#ffffff" data-dark="#b7b3ca"
+    data-color-name="سفید مرواریدی" aria-label="سفید مرواریدی"
+    style="--swatch:#e8e6f0"></button>
+
+  <button class="color-choice"
+    data-color="#a8c9bb" data-light="#e4f4eb" data-dark="#75a38f"
+    data-color-name="سبز نعنایی" aria-label="سبز نعنایی"
+    style="--swatch:#a8c9bb"></button>
+
+  <button class="color-choice"
+    data-color="#d8a6a4" data-light="#f9dfd7" data-dark="#b66e7b"
+    data-color-name="رزگلد" aria-label="رزگلد"
+    style="--swatch:#d8a6a4"></button>
+
+  <button class="color-choice"
+    data-color="#91a4d9" data-light="#dce5ff" data-dark="#6577b9"
+    data-color-name="آبی مهتابی" aria-label="آبی مهتابی"
+    style="--swatch:#91a4d9"></button>
+
+  <button class="color-choice"
+    data-color="#8d234b" data-light="#d95c86" data-dark="#65132f"
+    data-color-name="زرشکی" aria-label="زرشکی"
+    style="--swatch:#8d234b"></button>
+
+  <button class="color-choice"
+    data-color="#192b25" data-light="#668a74" data-dark="#15211d"
+    data-color-name="سبز زمردی" aria-label="سبز زمردی"
+    style="--swatch:#192b25"></button>
+
+  <button class="color-choice"
+    data-color="#20223d" data-light="#737dbd" data-dark="#15162b"
+    data-color-name="آبی سلطنتی" aria-label="آبی سلطنتی"
+    style="--swatch:#20223d"></button>
+
+  <button class="color-choice"
+    data-color="#29232e" data-light="#77717e" data-dark="#100e14"
+    data-color-name="مشکی" aria-label="مشکی"
+    style="--swatch:#29232e"></button>
+
+  <button class="color-choice"
+    data-color="#e9cda0" data-light="#fff0c7" data-dark="#bb8848"
+    data-color-name="طلایی" aria-label="طلایی"
+    style="--swatch:#e9cda0"></button>
+
+  <button class="color-choice"
+    data-color="#e0a4b2" data-light="#ffd9e4" data-dark="#bd6c8d"
+    data-color-name="صورتی رز" aria-label="صورتی رز"
+    style="--swatch:#e0a4b2"></button>
+
+  <button class="color-choice"
+    data-color="#a8c9e7" data-light="#e4f3ff" data-dark="#628cb9"
+    data-color-name="آبی آسمانی" aria-label="آبی آسمانی"
+    style="--swatch:#a8c9e7"></button>
+
+  <button class="color-choice"
+    data-color="#b66c46" data-light="#f4c49b" data-dark="#87402d"
+    data-color-name="مسی" aria-label="مسی"
+    style="--swatch:#b66c46"></button>
+
+  <button class="color-choice"
+    data-color="#d7c7a9" data-light="#fff4df" data-dark="#a58c65"
+    data-color-name="شامپاینی" aria-label="شامپاینی"
+    style="--swatch:#d7c7a9"></button>
+</div>
+
+
+          <div class="control-section">
+            <span class="step-label">۰۳ / اکسسوری‌ها</span>
+            <div class="fabric-studio" aria-label="جنس و طرح پارچه">
+              <h3>جنس و طرح پارچه</h3>
+              <p>سطح پارچه رو انتخاب کن تا تغییرش رو روی مدل سه‌بعدی ببینی.</p>
+              <div class="fabric-options" role="group" aria-label="انتخاب جنس پارچه">
+                <button type="button" class="fabric-choice selected" data-fabric="silk" aria-pressed="true"><span class="fabric-swatch silk-swatch"></span><strong>ابریشم</strong><small>نرم و لطیف</small></button>
+                <button type="button" class="fabric-choice" data-fabric="satin" aria-pressed="false"><span class="fabric-swatch satin-swatch"></span><strong>ساتن</strong><small>براق و مجلسی</small></button>
+                <button type="button" class="fabric-choice" data-fabric="floral" aria-pressed="false"><span class="fabric-swatch floral-swatch">✿</span><strong>گل‌دار</strong><small>نقش ظریف</small></button>
+                <button type="button" class="fabric-choice" data-fabric="lace" aria-pressed="false"><span class="fabric-swatch lace-swatch">✧</span><strong>گیپور</strong><small>بافت توری</small></button>
+                <button type="button" class="fabric-choice" data-fabric="glitter" aria-pressed="false"><span class="fabric-swatch glitter-swatch">✦</span><strong>اکلیلی</strong><small>درخشش ملایم</small></button>
+              </div>
+            </div>
+
+            <h3>جزئیات، استایل رو می‌سازن</h3>
+            
+<div class="accessory-options">
+  <button class="accessory-button" data-accessory="necklace">
+    <span>📿</span><span>گردنبند</span><b>+</b>
+  </button>
+  <button class="accessory-button" data-accessory="earring">
+    <span>💎</span><span>گوشواره</span><b>+</b>
+  </button>
+  <button class="accessory-button" data-accessory="crown">
+    <span>👑</span><span>تاج</span><b>+</b>
+  </button>
+  <button class="accessory-button" data-accessory="bag">
+    <span>👜</span><span>کیف</span><b>+</b>
+  </button>
+  <button class="accessory-button" data-accessory="glove">
+    <span>🧤</span><span>دستکش</span><b>+</b>
+  </button>
+  <button class="accessory-button" data-accessory="glasses">
+    <span>🕶️</span><span>عینک</span><b>+</b>
+  </button>
+  <button class="accessory-button" data-accessory="cape">
+    <span>🪄</span><span>شنل</span><b>+</b>
+  </button>
+  <button class="accessory-button" data-accessory="belt">
+    <span>✨</span><span>کمربند جواهری</span><b>+</b>
+  </button>
+  <button class="accessory-button" data-accessory="bracelet">
+    <span>💫</span><span>دستبند</span><b>+</b>
+  </button>
+</div>
+            <div class="accessory-customizer" aria-label="تنظیم جزئیات اکسسوری‌ها">
+              <div class="customizer-field">
+                <label for="necklaceStyle">مدل گردنبند</label>
+                <select id="necklaceStyle">
+                  <option value="pendant">آویز الماسی</option>
+                  <option value="pearl">مرواریدی</option>
+                  <option value="choker">چوکر ظریف</option>
+                  <option value="heart">آویز قلب</option>
+                </select>
+              </div>
+              <div class="customizer-field">
+                <label for="bagStyle">مدل کیف</label>
+                <select id="bagStyle">
+                  <option value="classic">کیف دستی کلاسیک</option>
+                  <option value="clutch">کلاچ مجلسی</option>
+                  <option value="round">کیف گرد</option>
+                  <option value="bow">کیف پاپیونی</option>
+                </select>
+              </div>
+              <div class="customizer-field">
+                <label for="earringStyle">مدل گوشواره</label>
+                <select id="earringStyle"><option value="drop">آویز کریستالی</option><option value="stud">میخی مینیمال</option><option value="hoop">حلقه‌ای طلایی</option><option value="pearl">مرواریدی</option><option value="chandelier">لوستر جواهری</option></select>
+              </div>
+              <div class="customizer-field">
+                <label for="crownStyle">مدل تاج</label>
+                <select id="crownStyle"><option value="tiara">تاج سلطنتی</option><option value="floral">تاج گل‌دار</option><option value="halo">هاله‌ی ظریف</option><option value="princess">تاج پرنسسی بلند</option></select>
+              </div>
+              <div class="customizer-field">
+                <label for="gloveStyle">مدل دستکش</label>
+                <select id="gloveStyle"><option value="opera">اپرای بلند</option><option value="classic">کلاسیک</option><option value="fingerless">بدون انگشت</option><option value="lace">گیپور نگین‌دار</option></select>
+              </div>
+              <div class="customizer-field">
+                <label for="glassesStyle">مدل عینک</label>
+                <select id="glassesStyle"><option value="cat">چشم‌گربه‌ای</option><option value="round">گرد کلاسیک</option><option value="sun">آفتابی بزرگ</option><option value="butterfly">پروانه‌ای فانتزی</option></select>
+              </div>
+              <div class="customizer-field">
+                <label for="capeStyle">مدل شنل</label>
+                <select id="capeStyle"><option value="royal">شنل سلطنتی بلند</option><option value="short">شنل کوتاه</option><option value="sheer">شنل حریر سبک</option><option value="hood">شنل کلاه‌دار فانتزی</option></select>
+              </div>
+              <div class="customizer-field">
+                <label for="beltStyle">مدل کمربند</label>
+                <select id="beltStyle"><option value="ornate">جواهری نگین‌دار</option><option value="slim">باریک و مینیمال</option><option value="chain">زنجیری</option><option value="bow">پاپیونی</option></select>
+              </div>
+              <div class="customizer-field">
+                <label for="braceletStyle">مدل دستبند</label>
+                <select id="braceletStyle"><option value="stack">چندلایه</option><option value="cuff">کاف پهن</option><option value="pearls">مرواریدی</option><option value="charm">آویزدار</option></select>
+              </div>
+              <div class="customizer-field full-width">
+                <span class="customizer-label">رنگ جواهرات و جزئیات</span>
+                <div class="bag-colors accessory-tone-colors" role="group" aria-label="رنگ جواهرات">
+                  <button type="button" class="bag-color accessory-tone selected" data-accessory-tone="#c6a0e8" aria-label="یاسی کریستالی" style="--swatch:#c6a0e8" aria-pressed="true"></button>
+                  <button type="button" class="bag-color accessory-tone" data-accessory-tone="#e9a5c1" aria-label="رزگلد صورتی" style="--swatch:#e9a5c1" aria-pressed="false"></button>
+                  <button type="button" class="bag-color accessory-tone" data-accessory-tone="#77c7d4" aria-label="فیروزه‌ای" style="--swatch:#77c7d4" aria-pressed="false"></button>
+                  <button type="button" class="bag-color accessory-tone" data-accessory-tone="#a6d7a1" aria-label="سبز زمردی" style="--swatch:#a6d7a1" aria-pressed="false"></button>
+                  <button type="button" class="bag-color accessory-tone" data-accessory-tone="#bd425f" aria-label="یاقوتی" style="--swatch:#bd425f" aria-pressed="false"></button>
+                  <button type="button" class="bag-color accessory-tone" data-accessory-tone="#d9b65c" aria-label="شامپاینی" style="--swatch:#d9b65c" aria-pressed="false"></button>
+                  <button type="button" class="bag-color accessory-tone" data-accessory-tone="#f5f0ff" aria-label="الماس یخی" style="--swatch:#f5f0ff" aria-pressed="false"></button>
+                </div>
+              </div>
+              <div class="customizer-field full-width">
+                <span class="customizer-label">فلز اکسسوری‌ها</span>
+                <div class="bag-colors accessory-metal-colors" role="group" aria-label="رنگ فلز اکسسوری‌ها">
+                  <button type="button" class="bag-color accessory-metal selected" data-accessory-metal="#f5cf78" aria-label="طلایی" style="--swatch:#f5cf78" aria-pressed="true"></button>
+                  <button type="button" class="bag-color accessory-metal" data-accessory-metal="#e6e9f2" aria-label="نقره‌ای" style="--swatch:#e6e9f2" aria-pressed="false"></button>
+                  <button type="button" class="bag-color accessory-metal" data-accessory-metal="#d99aa9" aria-label="رزگلد" style="--swatch:#d99aa9" aria-pressed="false"></button>
+                  <button type="button" class="bag-color accessory-metal" data-accessory-metal="#b8c5d8" aria-label="پلاتینی" style="--swatch:#b8c5d8" aria-pressed="false"></button>
+                  <button type="button" class="bag-color accessory-metal" data-accessory-metal="#8d6b4f" aria-label="برنز" style="--swatch:#8d6b4f" aria-pressed="false"></button>
+                </div>
+              </div>
+              <div class="customizer-field full-width">
+                <span class="customizer-label">رنگ کیف</span>
+                <div class="bag-colors" role="group" aria-label="رنگ کیف">
+                  <button type="button" class="bag-color selected" data-bag-color="#c6a0e8" data-bag-dark="#865bb4" aria-label="یاسی" style="--swatch:#c6a0e8"></button>
+                  <button type="button" class="bag-color" data-bag-color="#e9a5c1" data-bag-dark="#ad557b" aria-label="صورتی" style="--swatch:#e9a5c1"></button>
+                  <button type="button" class="bag-color" data-bag-color="#f2e8d7" data-bag-dark="#b9a17e" aria-label="کرم" style="--swatch:#f2e8d7"></button>
+                  <button type="button" class="bag-color" data-bag-color="#78a98f" data-bag-dark="#356b53" aria-label="سبز" style="--swatch:#78a98f"></button>
+                  <button type="button" class="bag-color" data-bag-color="#bd425f" data-bag-dark="#741d35" aria-label="زرشکی" style="--swatch:#bd425f"></button>
+                  <button type="button" class="bag-color" data-bag-color="#25283f" data-bag-dark="#111322" aria-label="سرمه‌ای" style="--swatch:#25283f"></button>
+                  <button type="button" class="bag-color" data-bag-color="#d9b65c" data-bag-dark="#8b6826" aria-label="طلایی" style="--swatch:#d9b65c"></button>
+                </div>
+              </div>
+              <div class="customizer-field full-width">
+                <span class="customizer-label">رنگ دستکش</span>
+                <div class="bag-colors" role="group" aria-label="رنگ دستکش">
+                  <button type="button" class="bag-color glove-color selected" data-glove-color="#f3e7f5" aria-label="یخی" style="--swatch:#f3e7f5" aria-pressed="true"></button>
+                  <button type="button" class="bag-color glove-color" data-glove-color="#17151d" aria-label="مشکی" style="--swatch:#17151d" aria-pressed="false"></button>
+                  <button type="button" class="bag-color glove-color" data-glove-color="#bd425f" aria-label="زرشکی" style="--swatch:#bd425f" aria-pressed="false"></button>
+                  <button type="button" class="bag-color glove-color" data-glove-color="#d9b65c" aria-label="طلایی" style="--swatch:#d9b65c" aria-pressed="false"></button>
+                  <button type="button" class="bag-color glove-color" data-glove-color="#6d86bd" aria-label="آبی" style="--swatch:#6d86bd" aria-pressed="false"></button>
+                  <button type="button" class="bag-color glove-color" data-glove-color="#78a98f" aria-label="سبز" style="--swatch:#78a98f" aria-pressed="false"></button>
+                </div>
+              </div>
+              <div class="customizer-field full-width">
+                <span class="customizer-label">رنگ موی مانکن</span>
+                <div class="bag-colors" role="group" aria-label="رنگ موی مانکن">
+                  <button type="button" class="bag-color hair-color selected" data-hair-color="#43263e" aria-label="قهوه‌ای تیره" style="--swatch:#43263e" aria-pressed="true"></button>
+                  <button type="button" class="bag-color hair-color" data-hair-color="#17151d" aria-label="مشکی" style="--swatch:#17151d" aria-pressed="false"></button>
+                  <button type="button" class="bag-color hair-color" data-hair-color="#7a3e24" aria-label="قهوه‌ای گرم" style="--swatch:#7a3e24" aria-pressed="false"></button>
+                  <button type="button" class="bag-color hair-color" data-hair-color="#d9b65c" aria-label="بلوند طلایی" style="--swatch:#d9b65c" aria-pressed="false"></button>
+                  <button type="button" class="bag-color hair-color" data-hair-color="#c9a56b" aria-label="کاراملی" style="--swatch:#c9a56b" aria-pressed="false"></button>
+                  <button type="button" class="bag-color hair-color" data-hair-color="#e8e0d2" aria-label="بلوند روشن" style="--swatch:#e8e0d2" aria-pressed="false"></button>
+                  <button type="button" class="bag-color hair-color" data-hair-color="#bd425f" aria-label="زرشکی" style="--swatch:#bd425f" aria-pressed="false"></button>
+                  <button type="button" class="bag-color hair-color" data-hair-color="#6d86bd" aria-label="آبی فانتزی" style="--swatch:#6d86bd" aria-pressed="false"></button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="button-row">
+            <button id="resetDesignBtn" class="button secondary">از نو طراحی کن</button>
+            <button id="finishDesignBtn" class="button primary">ثبت طراحی ✨</button>
+          </div>
+          <p id="designMessage" class="message" aria-live="polite">
+            هر چیزی دوست داری انتخاب کن؛ اینجا قوانین مد رو خودت می‌سازی.
+          </p>
+        </section>
+      </div>
+
+      <div id="designReward" class="reward final-reward hidden">
+        <div class="reward-icon">💜</div>
+        <div class="eyebrow">✦ طراحی با موفقیت ثبت شد ✦</div>
+        <h2>این استایل فقط مال توئه، MAEDE</h2>
+        <p>مدل و رنگت رو انتخاب کردی و امضای خودت رو پای این طراحی گذاشتی.</p>
+        <div class="final-design-preview" id="finalDesignPreview"></div>
+        <button id="backToGardenBtn" class="button secondary">برگشت به باغ گل‌ها</button>
+        <button id="editDesignBtn" class="button primary">می‌خوام تغییرش بدم</button>
+      </div>
+      <a class="enter-stage-three" href="stage3.html">
+    ورود به اتاق اسرارآمیز ✦
+</a>
+    </section>
+  </main>
+
+  <footer>
+    <span>ساخته‌شده با کمی خیال و کلی جزئیات</span>
+    <span class="footer-mark">MAEDE ✦</span>
+  </footer>
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"}}</script>
+  <script type="module" src="designer3d.js"></script>
+</body>
+</html>

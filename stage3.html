@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>راز صندوق طلایی | MAEDE</title>
+  <link rel="stylesheet" href="stage3.css">
+  <script src="stage3.js" defer></script>
+  <link rel="stylesheet" href="maede-plus.css">
+  <script src="maede-plus.js" defer></script>
+</head>
+<body>
+  <div class="magic-bg" aria-hidden="true">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="orb orb-three"></div>
+  </div>
+  <div id="particles" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html">MAEDE<span>✦</span></a>
+    <div class="stage-label">مرحله سوم <span>۰۳ / ۰۴</span></div>
+  </header>
+
+  <main class="game">
+    <section class="intro">
+      <div class="eyebrow">THE SECRET VAULT</div>
+      <h1>راز صندوق <span>طلایی</span></h1>
+      <p>
+        سه نشانه را پیدا کن، رمز را کشف کن و کلید واقعی را انتخاب کن.
+        صندوق فقط برای کسی باز می‌شود که با دقت نگاه کند!
+      </p>
+    </section>
+
+    <section class="progress-wrap" aria-label="پیشرفت بازی">
+      <div class="progress-track">
+        <div id="progressBar" class="progress-fill"></div>
+      </div>
+      <div class="progress-text">
+        <span>پیشرفت مأموریت</span>
+        <strong id="progressLabel">۰ از ۵</strong>
+      </div>
+    </section>
+
+    <section class="vault-layout">
+      <div class="vault-scene">
+        <div class="moon">✦</div>
+        <div class="arch"></div>
+
+        <div class="chest" id="chest" aria-label="صندوق طلایی">
+          <div class="chest-lid">
+            <div class="lid-gem">✦</div>
+          </div>
+          <div class="chest-body">
+            <div class="chest-ornament">❖</div>
+            <div class="chest-lock" id="chestLock">🔒</div>
+          </div>
+          <div class="chest-glow"></div>
+        </div>
+
+        <div class="floor-glow"></div>
+        <div class="scene-caption" id="sceneCaption">
+          صندوق هنوز قفل است...
+        </div>
+      </div>
+
+      <div class="mission-panel">
+        <div class="panel-heading">
+          <span class="panel-icon">✧</span>
+          <div>
+            <h2>دفتر اسرار</h2>
+            <p>سرنخ‌ها را به ترتیب بررسی کن.</p>
+          </div>
+        </div>
+
+        <div class="clues">
+          <button class="clue-card" data-clue="0" type="button">
+            <span class="clue-number">۱</span>
+            <span class="clue-info">
+              <strong>نشان ستاره</strong>
+              <small>اولین سرنخ مخفی</small>
+            </span>
+            <span class="clue-status">؟</span>
+          </button>
+
+          <button class="clue-card" data-clue="1" type="button">
+            <span class="clue-number">۲</span>
+            <span class="clue-info">
+              <strong>نشان هندسی</strong>
+              <small>دومین سرنخ مخفی</small>
+            </span>
+            <span class="clue-status">؟</span>
+          </button>
+
+          <button class="clue-card" data-clue="2" type="button">
+            <span class="clue-number">۳</span>
+            <span class="clue-info">
+              <strong>نشان ماه</strong>
+              <small>آخرین سرنخ مخفی</small>
+            </span>
+            <span class="clue-status">؟</span>
+          </button>
+        </div>
+
+        <div class="clue-reveal" id="clueReveal" aria-live="polite">
+          یکی از نشانه‌ها را انتخاب کن تا سرنخش آشکار شود.
+        </div>
+
+        <div class="puzzle-section">
+          <label for="vaultCode">رمز سه‌رقمی صندوق</label>
+          <p class="puzzle-hint">
+            هر سه سرنخ را بخوان و جواب‌ها را به ترتیب وارد کن.
+          </p>
+          <div class="code-row">
+            <input
+              id="vaultCode"
+              type="text"
+              inputmode="numeric"
+              maxlength="3"
+              placeholder="•••"
+              autocomplete="off"
+              aria-label="رمز سه‌رقمی صندوق"
+            >
+            <button id="checkCode" class="gold-button" type="button">
+              بررسی رمز
+            </button>
+          </div>
+          <p id="codeMessage" class="message" aria-live="polite"></p>
+        </div>
+
+        <div id="keySection" class="key-section hidden">
+          <h3>قفل باز شده؛ کلید نهایی را انتخاب کن</h3>
+          <p>نگهبان صندوق این پیام را گذاشته:</p>
+          <blockquote>
+            «کلید من نه به رنگ شب است و نه به رنگ ماه؛
+            رنگش مانند خورشید و گنج است.»
+          </blockquote>
+          <div class="key-options">
+            <button class="key-option" data-key="silver" type="button">
+              <span>🗝️</span>
+              <strong>کلید نقره‌ای</strong>
+            </button>
+            <button class="key-option" data-key="gold" type="button">
+              <span>🔑</span>
+              <strong>کلید طلایی</strong>
+            </button>
+            <button class="key-option" data-key="purple" type="button">
+              <span>🗝️</span>
+              <strong>کلید بنفش</strong>
+            </button>
+          </div>
+          <p id="keyMessage" class="message" aria-live="polite"></p>
+        </div>
+
+        <div id="reward" class="reward hidden" aria-live="polite">
+          <div class="reward-sparkle">✦ ✧ ✦</div>
+          <h2>صندوق باز شد!</h2>
+          <p>
+            آفرین! با دقت و هوش خودت راز اتاق را کشف کردی.
+            یک سورپرایز دیگر در انتظار توست...
+          </p>
+          <div class="reward-seal">MAEDE</div>
+          <button id="finishButton" class="gold-button finish-button" type="button">
+            دیدن پایان این مرحله
+          </button>
+          <p id="finishMessage" class="message"></p>
+        </div>
+      </div>
+      
+
+    </section>
+
+    <footer class="footer">
+      <span>MAEDE</span>
+      <span>هر راز، یک قدم تا شگفتی</span>
+      <a href="index.html">بازگشت به مراحل قبل</a>
+    </footer>
+  </main>
+</body>
+</html>

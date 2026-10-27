@@ -1,0 +1,38 @@
+.mp-trail{position:fixed;z-index:9999;pointer-events:none;color:#f5d58b;font-size:14px;transform:translate(-50%,-50%);animation:mpFade .9s ease-out forwards;text-shadow:0 0 8px #f5d58b}
+@keyframes mpFade{to{opacity:0;transform:translate(-50%,-160%) scale(.4)}}
+.mp-petals{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.mp-petals span{position:absolute;top:-8%;opacity:.32;animation:mpFall linear infinite}
+@keyframes mpFall{to{transform:translate(70px,115vh) rotate(360deg)}}
+.mp-confetti{position:fixed;top:-30px;z-index:9998;pointer-events:none;animation:mpConf linear forwards}
+@keyframes mpConf{to{transform:translateY(112vh) rotate(540deg);opacity:.25}}
+.mp-pop{position:fixed;z-index:9999;pointer-events:none;color:#f5d58b;font-weight:700;transform:translate(-50%,-50%);animation:mpPop 1s ease-out forwards;text-shadow:0 0 10px #000a}
+@keyframes mpPop{to{opacity:0;transform:translate(-50%,-260%) scale(1.3)}}
+.mp-bar,.mp-studio{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin:12px 0}
+.mp-chip{padding:9px 15px;border-radius:999px;border:1px solid #e7c7ff55;background:#ffffff12;color:inherit;font:inherit;font-size:13px;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}
+.mp-chip:hover{transform:translateY(-2px);background:#ffffff22;box-shadow:0 6px 18px #b995ed44}
+.mp-main{background:linear-gradient(120deg,#ffe4a0,#e9b6ff);color:#28132d;border-color:#f5d58b99;font-weight:700}
+.mp-name{width:100%;text-align:center;color:#f5d58b;font-size:14px;line-height:1.9;padding:6px 10px;border-radius:14px;background:#ffffff0d}
+.mp-card{margin:0 auto 14px;max-width:340px;padding:12px;border-radius:18px;border:1px solid #f5d58b66;background:#ffffff10;box-shadow:0 10px 40px #0006;text-align:center}
+.mp-card img{width:100%;border-radius:12px;display:block}
+.mp-card figcaption{margin:10px 0 6px;color:#f5d58b;font-size:13px;line-height:1.9}
+.mp-card a{color:#e9b6ff;font-size:13px}
+.choice-button,.accessory-button,.fabric-choice,.shape-choice,.color-choice,.flower-card{transition:transform .2s,box-shadow .25s}
+.choice-button:hover,.accessory-button:hover,.fabric-choice:hover,.shape-choice:hover,.flower-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px #b995ed44}
+.color-choice:hover{transform:scale(1.18)}
+.choice-button.selected,.accessory-button.selected,.fabric-choice.selected,.shape-choice.selected,.color-choice.selected{box-shadow:0 0 0 2px #f5d58b99,0 0 22px #b995ed66}
+.dress-scene{box-shadow:0 20px 70px #8d4bd533,inset 0 0 40px #ffffff08}
+.stage.active{animation:mpStage .7s both}
+@keyframes mpStage{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.mp-petals,.mp-trail{display:none}.stage.active{animation:none}}
+.mp-live{width:100%;text-align:center;color:#ffe4a0;font-size:14px;font-weight:700}
+.extras-studio{margin-top:14px}
+.mp-score{margin:14px auto;padding:18px;max-width:420px;border-radius:20px;border:1px solid #f5d58b66;background:linear-gradient(145deg,#ffffff14,#b995ed12);box-shadow:0 10px 40px #0005;text-align:center}
+.mp-stars{color:#f5d58b;font-size:26px;letter-spacing:4px;text-shadow:0 0 14px #f5d58b88}
+.mp-total{font-size:38px;font-weight:800;color:#fff;margin:4px 0}
+.mp-title{color:#e9b6ff;font-size:17px;margin-bottom:12px}
+.mp-row{display:grid;grid-template-columns:130px 1fr 34px;gap:8px;align-items:center;margin:8px 0;font-size:13px;text-align:right}
+.mp-track{height:9px;border-radius:9px;background:#ffffff1c;overflow:hidden}
+.mp-bar-fill{height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#e9b6ff,#f5d58b);transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.mp-tip{color:#f0e5f9;font-size:13px;line-height:2;margin:12px 0 4px}
+.mp-best{color:#f5d58b;font-size:12px;margin:0}
+@media (max-width:480px){.mp-row{grid-template-columns:105px 1fr 30px}}

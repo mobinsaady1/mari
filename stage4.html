@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#10091e">
+    <title>MAEDE | اتاق آخر</title>
+
+    <link rel="stylesheet" href="stage4.css">
+    <script src="stage4.js" defer></script>
+  <link rel="stylesheet" href="maede-plus.css">
+  <script src="maede-plus.js" defer></script>
+</head>
+<body>
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+    <div class="stars" id="stars"></div>
+    <div class="hearts" id="hearts"></div>
+
+    <main class="final-room">
+        <header class="brand">
+            <span class="brand-symbol">✦</span>
+            <span>MAEDE</span>
+            <span class="brand-symbol">✦</span>
+        </header>
+
+        <section class="intro" id="intro">
+            <p class="eyebrow">آخرین راز، یک احساس واقعی</p>
+            <h1>به آخرین اتاق خوش آمدی</h1>
+            <p class="intro-text">
+                تا اینجا برای کشف رازها قدم برداشتی؛
+                اما بعضی هدیه‌ها را نمی‌شود با حل کردن یک معما به دست آورد...
+            </p>
+            <p class="intro-hint">برای کشف آخرین راز، صندوق را باز کن.</p>
+
+            <button class="chest-button" id="chestButton"
+                    type="button" aria-label="باز کردن صندوق هدیه">
+                <span class="chest-aura"></span>
+                <span class="chest-lid"></span>
+                <span class="chest-body">
+                    <span class="chest-lock">♥</span>
+                </span>
+                <span class="chest-base"></span>
+                <span class="chest-sparkle sparkle-one">✧</span>
+                <span class="chest-sparkle sparkle-two">✦</span>
+                <span class="chest-sparkle sparkle-three">✧</span>
+            </button>
+
+            <p class="chest-caption" id="chestCaption">
+                یک هدیه کوچک، با احساسی بزرگ
+            </p>
+        </section>
+
+        <section class="letter-section" id="letterSection" hidden>
+            <div class="letter-card">
+                <div class="letter-top">✦ یک پیام از قلب MAEDE ✦</div>
+
+                <div class="letter-heart">♡</div>
+
+                <h2>برای کسی که این لحظه را می‌خواند...</h2>
+
+                <p class="letter-message" id="letterMessage"></p>
+
+                <div class="letter-divider">
+                    <span>♥</span>
+                </div>
+
+                <p class="signature">با تمام احساسی که در این کلمات جا می‌شود...</p>
+
+                <button class="primary-button" id="editButton" type="button">
+                    ویرایش پیام نهایی
+                </button>
+
+                <button class="secondary-button" id="replayButton" type="button">
+                    تماشای دوباره لحظه باز شدن هدیه
+                </button>
+            </div>
+        </section>
+
+        <section class="editor-section" id="editorSection" hidden>
+            <div class="editor-card">
+                <span class="editor-icon">✍</span>
+                <h2>پیامت را با احساس خودت بنویس</h2>
+                <p>
+                    این متن کاملاً متعلق به توست. هر چیزی که دوست داری،
+                    اینجا بنویس و پیش‌نمایش آن را ببین.
+                </p>
+
+                <label for="messageInput">متن پیام عاشقانه</label>
+                <textarea id="messageInput" rows="7"
+                    maxlength="3000"
+                    placeholder="پیام خودت را اینجا بنویس..."></textarea>
+
+                <div class="editor-actions">
+                    <button class="primary-button" id="saveButton" type="button">
+                        ذخیره و نمایش پیام
+                    </button>
+                    <button class="secondary-button" id="cancelButton" type="button">
+                        انصراف
+                    </button>
+                    <button class="text-button" id="resetButton" type="button">
+                        بازگردانی متن اولیه
+                    </button>
+                </div>
+
+                <p class="save-status" id="saveStatus" aria-live="polite"></p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <span>ساخته‌شده با عشق</span>
+            <span class="footer-heart">♥</span>
+            <span>MAEDE</span>
+        </footer>
+    </main>
+
+</body>
+</html>
